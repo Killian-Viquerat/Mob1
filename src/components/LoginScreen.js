@@ -8,6 +8,8 @@ import {
   Text,
 } from 'react-native';
 import {Formik} from 'formik';
+import axios from 'axios';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const styles = StyleSheet.create({
   container: {
@@ -32,41 +34,47 @@ const styles = StyleSheet.create({
   },
 });
 
-function LoginScreen() {
+function LoginScreen({navigation}) {
   return (
     <Formik
-      initialValues={{name: '', email: '', password: ''}}
-      onSubmit={values => console.log(values)}>
+      initialValues={{token: 'aeh4tliZpArVXkfRbyyHEcUU6bN2DNoJwkRShYKn0rhkKm5XMsmGHVddRRs2'}}
+      onSubmit={values =>
+        axios
+          .get('http://192.168.1.44:8000/api/me', {
+            headers: {Authorization: 'Bearer ' + values.token},
+          })
+          .then(res => {
+            console.log(res.data);
+            storeData = async () => {
+              try {
+                await AsyncStorage.setItem('@token', values.token);
+              } catch (e) {
+                // saving error
+              }
+            };
+          })
+          .catch(error => console.log(error), console.log(values))
+      }>
       {({handleChange, handleBlur, handleSubmit, values}) => (
         <SafeAreaView style={styles.container}>
           <View>
-            <Text style={styles.text}>Name</Text>
+            <Text style={styles.text}>Token</Text>
             <TextInput
               style={styles.form}
-              onChangeText={handleChange('name')}
-              onBlur={handleBlur('name')}
-              placeholder="Enter name"
-              value={values.name}
-            />
-            <Text style={styles.text}>Email</Text>
-            <TextInput
-              style={styles.form}
-              onChangeText={handleChange('email')}
-              onBlur={handleBlur('email')}
-              placeholder="Enter email"
-              value={values.email}
-            />
-            <Text style={styles.text}>Password</Text>
-            <TextInput
-              style={styles.form}
-              onChangeText={handleChange('password')}
-              onBlur={handleBlur('password')}
-              placeholder="Enter password"
+              onChangeText={handleChange('token')}
+              onBlur={handleBlur('token')}
+              placeholder="Enter token"
               secureTextEntry
-              value={values.password}
+              value={values.token}
             />
             <View style={styles.bouton}>
-              <Button onPress={handleSubmit} title="Submit" />
+              <Button onPress={handleSubmit} title="Login" />
+            </View>
+            <View style={styles.bouton}>
+              <Button
+                title="Not a account yet? create one..."
+                onPress={() => navigation.navigate('Register')}
+              />
             </View>
           </View>
         </SafeAreaView>

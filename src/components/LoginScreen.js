@@ -7,9 +7,10 @@ import {
   View,
   Text,
 } from 'react-native';
+import * as yup from 'yup';
 import {Formik} from 'formik';
-import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
+import {UserContainer} from '../containers/index.js';
 
 const styles = StyleSheet.create({
   container: {
@@ -35,40 +36,47 @@ const styles = StyleSheet.create({
 });
 
 function LoginScreen({navigation}) {
+  const userContainer = UserContainer.useContainer();
   return (
     <Formik
-      initialValues={{token: 'aeh4tliZpArVXkfRbyyHEcUU6bN2DNoJwkRShYKn0rhkKm5XMsmGHVddRRs2'}}
-      onSubmit={values =>
-        axios
-          .get('http://192.168.1.44:8000/api/me', {
-            headers: {Authorization: 'Bearer ' + values.token},
-          })
-          .then(res => {
-            console.log(res.data);
-            storeData = async () => {
-              try {
-                await AsyncStorage.setItem('@token', values.token);
-              } catch (e) {
-                // saving error
-              }
-            };
-          })
-          .catch(error => console.log(error), console.log(values))
-      }>
-      {({handleChange, handleBlur, handleSubmit, values}) => (
+      initialValues={{token: 'xfBtIPyxkpb7Rnhl7nwI3cz4qf8SfmLnSO3z0VAI8Dyfcwm7s7cwPlsaIRNB'}}
+      onSubmit={values => userContainer.login(values)}
+      validationSchema={yup.object().shape({
+        token: yup
+          .string()
+          .min(60)
+          .required(),
+      })}>
+      {({
+        handleChange,
+        handleBlur,
+        handleSubmit,
+        values,
+        setFieldTouched,
+        errors,
+        touched,
+        isValid,
+      }) => (
         <SafeAreaView style={styles.container}>
           <View>
             <Text style={styles.text}>Token</Text>
             <TextInput
               style={styles.form}
               onChangeText={handleChange('token')}
-              onBlur={handleBlur('token')}
+              onBlur={() => setFieldTouched('token')}
               placeholder="Enter token"
               secureTextEntry
               value={values.token}
             />
+            {touched.token && errors.token && (
+              <Text style={{paddingLeft: 10, fontSize: 10, color: 'red'}}>{errors.token}</Text>
+            )}
             <View style={styles.bouton}>
-              <Button onPress={handleSubmit} title="Login" />
+              <Button
+                onPress={handleSubmit}
+                title="Login"
+                disabled={!isValid}
+              />
             </View>
             <View style={styles.bouton}>
               <Button

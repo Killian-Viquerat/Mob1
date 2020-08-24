@@ -7,16 +7,19 @@ import HomeScreen from './components/HomeScreen.js';
 import SettingsScreen from './components/SettingsScreen.js';
 import LoginScreen from './components/LoginScreen.js';
 import RegisterScreen from './components/RegisterScreen.js';
-import ShopScreen from './components/ShopScreen.js';
+import ProductScreen from './screen/ProductScreen.js';
+
+import {UserContainer} from './containers/index.js';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 
 export default function Router() {
-  var logged = 1;
-  if (logged) {
-    return (
-      <NavigationContainer>
+  const userContainer = UserContainer.useContainer();
+  userContainer.refreshTokken();
+  return (
+    <NavigationContainer>
+      {userContainer.tokken ? (
         <Tab.Navigator>
           <Tab.Screen
             name="Home"
@@ -27,7 +30,7 @@ export default function Router() {
           />
           <Tab.Screen
             name="Shop"
-            component={ShopScreen}
+            component={ProductScreen}
             options={{
               tabBarIcon: () => (
                 <Ionicons name="shopping-basket" color="#333" size={24} />
@@ -44,15 +47,12 @@ export default function Router() {
             }}
           />
         </Tab.Navigator>
-      </NavigationContainer>
-    );
-  }
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      </Stack.Navigator>
+      ) : (
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </Stack.Navigator>
+      )}
     </NavigationContainer>
   );
 }

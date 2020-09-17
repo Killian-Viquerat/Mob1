@@ -14,6 +14,10 @@ function HomeScreen() {
           translucent: true,
           backgroundColor: 'transparent',
         }}
+        containerStyle={{
+          backgroundColor: '#0f20d9',
+          justifyContent: 'space-around',
+        }}
       />
     </View>
   );

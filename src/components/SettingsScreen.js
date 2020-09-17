@@ -7,14 +7,23 @@ import axios from 'axios';
 
 function SettingsScreen() {
   const userContainer = UserContainer.useContainer();
-  const [data, setData] = useState(null);
+  const [user, setUser] = useState(0);
+  const [balance, setBalance] = useState(0);
   useEffect(() => {
     axios
-      .get('http://192.168.1.44:8000/api/me', {
+      .get('/api/me', {
         headers: {Authorization: 'Bearer ' + userContainer.tokken},
       })
       .then(response => {
-        setData(response.data.data);
+        setUser(response.data.data);
+      })
+      .catch(error => console.log(error));
+    axios
+      .get('/api/me/balance', {
+        headers: {Authorization: 'Bearer ' + userContainer.tokken},
+      })
+      .then(response => {
+        setBalance(response.data);
       })
       .catch(error => console.log(error));
   }, [userContainer]);
@@ -37,16 +46,28 @@ function SettingsScreen() {
           translucent: true,
           backgroundColor: 'transparent',
         }}
+        containerStyle={{
+          backgroundColor: '#0f20d9',
+          justifyContent: 'space-around',
+        }}
       />
-      {data ? (
+      {user || balance ? (
+      <React.Fragment>
         <Card title="User information" containerStyle={{marginBottom: 10}}>
-          <View key={data.id}>
-            <Text>{'Firstname: ' + data.firstname}</Text>
-            <Text>{'Lastname: ' + data.lastname}</Text>
+          <View key={user.id}>
+            <Text>{'Firstname: ' + user.firstname}</Text>
+            <Text>{'Lastname: ' + user.lastname}</Text>
           </View>
         </Card>
+        <Card title="Balance" containerStyle={{marginBottom: 10}}>
+          <View>
+            <Text>{'Debit: ' + balance.debit}</Text>
+            <Text>{'Credit: ' + balance.credit}</Text>
+          </View>
+        </Card>
+      </React.Fragment>
       ) : null}
-      <Button onPress={this.clearAsyncStorage} title="Logout" />
+      <Button onPress={this.clearAsyncStorage} title="Logout" color="#0f20d9" />
     </View>
   );
 }

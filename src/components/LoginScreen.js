@@ -18,7 +18,6 @@ const styles = StyleSheet.create({
   },
   form: {
     borderWidth: 1,
-    borderBottomColor: 'grey',
     backgroundColor: 'lightgrey',
     marginRight: 10,
     marginLeft: 10,
@@ -27,6 +26,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginTop: 10,
     marginBottom: 10,
+    color : 'black'
   },
   bouton: {
     marginTop: 10,
@@ -38,57 +38,59 @@ const styles = StyleSheet.create({
 function LoginScreen({navigation}) {
   const userContainer = UserContainer.useContainer();
   return (
-    <Formik
-      initialValues={{token: 'xfBtIPyxkpb7Rnhl7nwI3cz4qf8SfmLnSO3z0VAI8Dyfcwm7s7cwPlsaIRNB'}}
-      onSubmit={values => userContainer.login(values)}
-      validationSchema={yup.object().shape({
-        token: yup
-          .string()
-          .min(60)
-          .required(),
-      })}>
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        setFieldTouched,
-        errors,
-        touched,
-        isValid,
-      }) => (
-        <SafeAreaView style={styles.container}>
-          <View>
-            <Text style={styles.text}>Token</Text>
-            <TextInput
-              style={styles.form}
-              onChangeText={handleChange('token')}
-              onBlur={() => setFieldTouched('token')}
-              placeholder="Enter token"
-              secureTextEntry
-              value={values.token}
-            />
-            {touched.token && errors.token && (
-              <Text style={{paddingLeft: 10, fontSize: 10, color: 'red'}}>{errors.token}</Text>
-            )}
-            <View style={styles.bouton}>
-              <Button
-                onPress={handleSubmit}
-                title="Login"
-                disabled={!isValid}
+      <Formik
+        initialValues={{token: 'E2TOhEjsCAaQHDXvQBLqKzzWdXt8qvE3P3ppSXgwl9jaMAGCgZJRvmMetiYu'}}
+        onSubmit={values => userContainer.login(values)}
+        validationSchema={yup.object().shape({
+          token: yup
+            .string()
+            .min(60)
+            .required(),
+        })}>
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          setFieldTouched,
+          errors,
+          touched,
+          isValid,
+        }) => (
+          <SafeAreaView style={styles.container}>
+            <View>
+              <Text style={styles.text}>Token</Text>
+              <TextInput
+                style={styles.form}
+                onChangeText={handleChange('token')}
+                onBlur={() => setFieldTouched('token')}
+                placeholder="Enter token"
+                secureTextEntry
+                value={values.token}
               />
+              {touched.token && errors.token && (
+                <Text style={{paddingLeft: 10, fontSize: 10, color: 'red'}}>{errors.token}</Text>
+              )}
+              <View style={styles.bouton}>
+                <Button
+                  onPress={handleSubmit}
+                  title="Login"
+                  disabled={!isValid}
+                  color="#0f20d9"
+                />
+              </View>
+              <View style={styles.bouton}>
+                <Button
+                  title="Not an account yet? create one..."
+                  onPress={() => navigation.navigate('Register')}
+                  color="#0f20d9"
+                />
+              </View>
             </View>
-            <View style={styles.bouton}>
-              <Button
-                title="Not a account yet? create one..."
-                onPress={() => navigation.navigate('Register')}
-              />
-            </View>
-          </View>
-        </SafeAreaView>
-      )}
-    </Formik>
-  );
+          </SafeAreaView>
+        )}
+      </Formik>
+  )
 }
 
 export default LoginScreen;

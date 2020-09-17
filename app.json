@@ -1,4 +1,5 @@
 {
   "name": "Mob1",
-  "displayName": "Mob1"
+  "displayName": "Mob1",
+  "apiUrl":"http://10.229.33.55:8000"
 }

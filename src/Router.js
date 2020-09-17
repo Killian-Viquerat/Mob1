@@ -22,19 +22,19 @@ export default function Router() {
       {userContainer.tokken ? (
         <Tab.Navigator>
           <Tab.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{
-              tabBarIcon: () => <Ionicons name="home" color="#333" size={24} />,
-            }}
-          />
-          <Tab.Screen
             name="Shop"
             component={ProductScreen}
             options={{
               tabBarIcon: () => (
-                <Ionicons name="shopping-basket" color="#333" size={24} />
+                <Ionicons name="shopping-bag" color="#333" size={24} />
               ),
+            }}
+          />
+          <Tab.Screen
+            name="Panier"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: () => <Ionicons name="shopping-cart" color="#333" size={24} />,
             }}
           />
           <Tab.Screen
@@ -42,14 +42,24 @@ export default function Router() {
             component={SettingsScreen}
             options={{
               tabBarIcon: () => (
-                <Ionicons name="info-circle" color="#333" size={24} />
+                <Ionicons name="sliders-h" color="#333" size={24} />
               ),
             }}
           />
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
-          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen}
+            options={{
+              title: 'Login',
+              headerStyle: {
+                backgroundColor: '#0f20d9',
+              },
+              headerTintColor: '#fff',
+            }}
+           />
           <Stack.Screen name="Register" component={RegisterScreen} />
         </Stack.Navigator>
       )}

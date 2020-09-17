@@ -7,33 +7,14 @@ const Stack = createStackNavigator();
 
 function ProductScreen() {
   return (
-    <Stack.Navigator initialRouteName="List">
+    <Stack.Navigator initialRouteName="List" screenOptions={{headerShown: false}}>
+      
       <Stack.Screen
         name="List"
-        options={{
-          title: 'Shop',
-          headerStyle: {
-            backgroundColor: '#0f20d9',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
         component={ShopScreen}
       />
       <Stack.Screen
         name="Details"
-        options={{
-          title: 'Details',
-          headerStyle: {
-            backgroundColor: '#0f20d9',
-          },
-          headerTintColor: '#fff',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
         component={ProductDetails}/>
     </Stack.Navigator>
   );

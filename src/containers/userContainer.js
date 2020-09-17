@@ -16,7 +16,7 @@ export function useUserContainer() {
 
   async function login(values) {
     axios
-      .get('http://192.168.1.44:8000/api/me', {
+      .get('/api/me', {
         headers: {Authorization: 'Bearer ' + values.token},
       })
       .then(async () => {

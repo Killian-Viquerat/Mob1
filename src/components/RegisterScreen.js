@@ -34,16 +34,16 @@ const styles = StyleSheet.create({
   },
 });
 
-function RegisterScreen() {
+function RegisterScreen({navigation}) {
   return (
     <Formik
       initialValues={{firstname: '', lastname: '', phonenumber: ''}}
       onSubmit={values =>
         axios
-          .post('http://192.168.1.44:8000/api/user/apply', values)
+          .post('/api/user/apply', values)
           .then(res => {
             console.log(res);
-            console.log(res.data);
+            navigation.navigate('Login');
           })
           .catch(error => console.log(error), console.log(values))
       }
@@ -111,6 +111,7 @@ function RegisterScreen() {
                 onPress={handleSubmit}
                 title="Create"
                 disabled={!isValid}
+                color="#0f20d9"
               />
             </View>
           </View>

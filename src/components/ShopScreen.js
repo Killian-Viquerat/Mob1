@@ -20,7 +20,7 @@ function ShopScreen({navigation}) {
 
   return (
     <View>
-      <Header
+      {/* <Header
         centerComponent={{
           text: 'Shop',
           style: {color: '#fff', fontSize: 16, fontWeight: 'bold'},
@@ -36,7 +36,7 @@ function ShopScreen({navigation}) {
           backgroundColor: '#0f20d9',
           justifyContent: 'space-around',
         }}
-      />
+      /> */}
       {data ? (
         <FlatList
           data={data}

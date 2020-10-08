@@ -1,12 +1,14 @@
 import 'react-native-gesture-handler';
 import Router from './Router.js';
-import {UserContainer} from './containers';
+import {UserContainer,BasketContainer} from './containers';
 import React from 'react';
 
 export default function App() {
   return (
     <UserContainer.Provider>
-      <Router />
+      <BasketContainer.Provider>
+        <Router />
+      </BasketContainer.Provider>
     </UserContainer.Provider>
   );
 }

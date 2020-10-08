@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Fragment} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ScrollView } from 'react-native';
 import {Card, Button, Icon, Header} from 'react-native-elements';
 import {UserContainer} from '../containers/index.js';
 import axios from 'axios';
@@ -20,7 +20,7 @@ function ProductDetails({route}) {
   }, [userContainer, id]);
   return (
     <View>
-      <Header
+      {/* <Header
         centerComponent={{
           text: 'Détails du produit',
           style: {color: '#fff', fontSize: 16, fontWeight: 'bold'},
@@ -36,16 +36,12 @@ function ProductDetails({route}) {
           backgroundColor: '#0f20d9',
           justifyContent: 'space-around',
         }}
-      />
+      /> */}
       {data ? (
-      <React.Fragment>
+      <ScrollView>
         <Card title={data.name} image={{uri:'http://10.229.33.55:8000/storage/pictures/'+data.picture}}>
           <Text style={{marginBottom: 10}}>{data.details}</Text>
           <Text style={{marginBottom: 10}}>{`stock: ${data.stock}, prix: ${data.price} CHF`}</Text>
-          <Button
-            buttonStyle={{borderRadius: 0, marginLeft: 0, marginRight: 0, marginBottom: 0}}
-            title="Ajouter au panier"
-          />
         </Card>
         {data.suppliers.length ? (
           <Card title="Fournisseurs">
@@ -61,7 +57,7 @@ function ProductDetails({route}) {
             }
           </Card>
         ) : null}
-      </React.Fragment>
+      </ScrollView>
       ) : null}
     </View>
   );

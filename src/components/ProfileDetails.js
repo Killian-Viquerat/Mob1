@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Button} from 'react-native';
-import {Header, Card, Text} from 'react-native-elements';
+import {Card, Text} from 'react-native-elements';
 import {UserContainer} from '../containers/index.js';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
-function SettingsScreen() {
+function ProfileScreen() {
   const userContainer = UserContainer.useContainer();
   const [user, setUser] = useState(0);
   const [balance, setBalance] = useState(0);
@@ -34,23 +34,6 @@ function SettingsScreen() {
   };
   return (
     <View>
-      <Header
-        centerComponent={{
-          text: 'Settings',
-          style: {color: '#fff', fontSize: 16, fontWeight: 'bold'},
-        }}
-        leftComponent={{icon: 'home', color: '#fff'}}
-        barStyle="light-content"
-        statusBarProps={{
-          barStyle: 'light-content',
-          translucent: true,
-          backgroundColor: 'transparent',
-        }}
-        containerStyle={{
-          backgroundColor: '#0f20d9',
-          justifyContent: 'space-around',
-        }}
-      />
       {user || balance ? (
       <React.Fragment>
         <Card title="User information" containerStyle={{marginBottom: 10}}>
@@ -72,4 +55,4 @@ function SettingsScreen() {
   );
 }
 
-export default SettingsScreen;
+export default ProfileScreen;

@@ -3,11 +3,12 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome5';
-import HomeScreen from './components/HomeScreen.js';
-import SettingsScreen from './components/SettingsScreen.js';
 import LoginScreen from './components/LoginScreen.js';
+//Screen
 import RegisterScreen from './components/RegisterScreen.js';
 import ProductScreen from './screen/ProductScreen.js';
+import BasketScreen from './screen/BasketScreen.js';
+import ProfileScreen from './screen/ProfileScreen.js';
 
 import {UserContainer} from './containers/index.js';
 
@@ -32,18 +33,22 @@ export default function Router() {
           />
           <Tab.Screen
             name="Panier"
-            component={HomeScreen}
+            component={BasketScreen}
             options={{
               tabBarIcon: () => <Ionicons name="shopping-cart" color="#333" size={24} />,
             }}
           />
           <Tab.Screen
             name="Settings"
-            component={SettingsScreen}
+            component={ProfileScreen}
             options={{
               tabBarIcon: () => (
                 <Ionicons name="sliders-h" color="#333" size={24} />
               ),
+              headerStyle: {
+                backgroundColor: '#0f20d9',
+              },
+              headerTintColor: '#fff',
             }}
           />
         </Tab.Navigator>

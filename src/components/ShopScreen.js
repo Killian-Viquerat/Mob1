@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, FlatList} from 'react-native';
-import {ListItem, Header} from 'react-native-elements';
+import {ListItem} from 'react-native-elements';
 import {UserContainer} from '../containers/index.js';
 import axios from 'axios';
 

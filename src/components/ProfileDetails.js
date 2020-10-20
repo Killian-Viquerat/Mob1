@@ -29,7 +29,7 @@ function ProfileScreen() {
   }, [userContainer]);
 
   clearAsyncStorage = async () => {
-    AsyncStorage.clear();
+    userContainer.deleteToken();
     userContainer.refreshTokken();
   };
   return (

@@ -21,13 +21,20 @@ export default function Router() {
   return (
     <NavigationContainer>
       {userContainer.tokken ? (
-        <Tab.Navigator>
+        <Tab.Navigator
+          initialRouteName="Profile"
+          tabBarOptions= {{
+            style: {
+               backgroundColor: 'black',
+            }}
+          }
+        >
           <Tab.Screen
             name="Shop"
             component={ProductScreen}
             options={{
               tabBarIcon: () => (
-                <Ionicons name="shopping-bag" color="#333" size={24} />
+                <Ionicons name="shopping-bag" color="#0f20d9" size={24} />
               ),
             }}
           />
@@ -35,15 +42,15 @@ export default function Router() {
             name="Panier"
             component={BasketScreen}
             options={{
-              tabBarIcon: () => <Ionicons name="shopping-cart" color="#333" size={24} />,
+              tabBarIcon: () => <Ionicons name="shopping-cart" color="#0f20d9" size={24} />,
             }}
           />
           <Tab.Screen
-            name="Settings"
+            name="Profile"
             component={ProfileScreen}
             options={{
               tabBarIcon: () => (
-                <Ionicons name="sliders-h" color="#333" size={24} />
+                <Ionicons name="sliders-h" color="#0f20d9" size={24} />
               ),
               headerStyle: {
                 backgroundColor: '#0f20d9',

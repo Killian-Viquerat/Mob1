@@ -6,9 +6,9 @@ import React from 'react';
 export default function App() {
   return (
     <UserContainer.Provider>
-      <BasketContainer.Provider>
-        <Router />
-      </BasketContainer.Provider>
+        <BasketContainer.Provider>
+          <Router/>
+        </BasketContainer.Provider>
     </UserContainer.Provider>
   );
 }

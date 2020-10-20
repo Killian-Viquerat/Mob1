@@ -1,59 +1,63 @@
 import React, {useState, useEffect} from 'react';
-import {View, FlatList} from 'react-native';
+import {View, FlatList, RefreshControl, Text, Dimensions } from 'react-native';
 import {ListItem} from 'react-native-elements';
 import {UserContainer} from '../containers/index.js';
 import axios from 'axios';
+import {apiUrl} from '../../app.json';
 
 function ShopScreen({navigation}) {
-  const [data, setData] = useState(null);
+  const [data, setData] = useState([]);
   const userContainer = UserContainer.useContainer();
+  const [refreshing, setRefreshing] = React.useState(true);
+
   useEffect(() => {
-    axios
-      .get('/api/products', {
+    onRefresh()
+  }, [userContainer]);
+
+  async function onRefresh(){
+    setRefreshing(true)
+    try{
+      var res = await axios.get('/api/products', {
         headers: {Authorization: 'Bearer ' + userContainer.tokken},
       })
-      .then(response => {
-        setData(response.data.data);
-      })
-      .catch(error => console.log(error));
-  }, [userContainer]);
+      setData(res.data.data);
+    }
+    catch{
+      setData([])
+    }
+    finally{
+      setRefreshing(false)
+    }
+  }
 
   return (
     <View>
-      {/* <Header
-        centerComponent={{
-          text: 'Shop',
-          style: {color: '#fff', fontSize: 16, fontWeight: 'bold'},
-        }}
-        leftComponent={{icon: 'home', color: '#fff'}}
-        barStyle="light-content"
-        statusBarProps={{
-          barStyle: 'light-content',
-          translucent: true,
-          backgroundColor: 'transparent',
-        }}
-        containerStyle={{
-          backgroundColor: '#0f20d9',
-          justifyContent: 'space-around',
-        }}
-      /> */}
-      {data ? (
-        <FlatList
-          data={data}
-          renderItem={({item}) => (
-            <ListItem 
-              bottomDivider
-              title={item.name}
-              subtitle={`stock: ${item.stock}, prix: ${item.price} CHF`}
-              leftAvatar={{source: {uri:'http://10.229.33.55:8000/storage/pictures/'+item.picture}}}
-              onPress={() => {
-                navigation.navigate('Details', {id: item.id});
-              }}
-            />
-          )}
-          keyExtractor={item => String(item.id)}
-        />
-      ) : null}
+      <FlatList
+        data={data}
+        ListEmptyComponent={
+          <View style={{
+              flex: 1,
+              height: Dimensions.get('window').height,
+          }}>
+              <Text style={{color:"#0f20d9",textAlign:"center",fontWeight:"bold",marginTop:"50%"}}>Veuillez tirer vers le bas pour raffraîchir la page</Text>                            
+          </View>
+        }
+        renderItem={({item}) => (
+          <ListItem 
+            bottomDivider
+            title={item.name}
+            subtitle={`stock: ${item.stock}, prix: ${item.price} CHF, Mis à jour: ${new Date(item.updated_at).toLocaleDateString()}`}
+            leftAvatar={{source: {uri:apiUrl+'/storage/pictures/'+item.picture}}}
+            onPress={() => {
+              navigation.navigate('Details', {id: item.id});
+            }}
+          />
+        )}
+        keyExtractor={item => String(item.id)}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
     </View>
   );
 }

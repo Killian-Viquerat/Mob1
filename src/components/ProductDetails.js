@@ -3,6 +3,7 @@ import {Text, View, ScrollView } from 'react-native';
 import {Card, Button, Icon, Header} from 'react-native-elements';
 import {UserContainer} from '../containers/index.js';
 import axios from 'axios';
+import {apiUrl} from '../../app.json';
 
 function ProductDetails({route}) {
   const {id} = route.params;
@@ -20,26 +21,9 @@ function ProductDetails({route}) {
   }, [userContainer, id]);
   return (
     <View>
-      {/* <Header
-        centerComponent={{
-          text: 'Détails du produit',
-          style: {color: '#fff', fontSize: 16, fontWeight: 'bold'},
-        }}
-        leftComponent={{icon: 'arrow-left', color: '#fff'}}
-        barStyle="light-content"
-        statusBarProps={{
-          barStyle: 'light-content',
-          translucent: true,
-          backgroundColor: 'transparent',
-        }}
-        containerStyle={{
-          backgroundColor: '#0f20d9',
-          justifyContent: 'space-around',
-        }}
-      /> */}
       {data ? (
       <ScrollView>
-        <Card title={data.name} image={{uri:'http://10.229.33.55:8000/storage/pictures/'+data.picture}}>
+        <Card title={data.name} image={{uri:apiUrl+'/storage/pictures/'+data.picture}}>
           <Text style={{marginBottom: 10}}>{data.details}</Text>
           <Text style={{marginBottom: 10}}>{`stock: ${data.stock}, prix: ${data.price} CHF`}</Text>
         </Card>
@@ -48,7 +32,7 @@ function ProductDetails({route}) {
             {
               data.suppliers.map((supplier, i) => {
                 return (
-                  <View key={i}>
+                  <View key={i} style={{borderBottomColor:"gray",borderBottomWidth:1,padding:5}}>
                     <Text>{`Nom: ${supplier.company_name}`}</Text>
                     <Text>{`Ville: ${supplier.city}`}</Text>
                   </View>

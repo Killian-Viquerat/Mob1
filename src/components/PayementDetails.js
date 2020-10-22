@@ -8,78 +8,9 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "white",
   },
-  Card: {
-    marginLeft: 'auto',
-    marginRight:'auto',
-    width: "100%",
-    height: 100,
-    backgroundColor: 'white',
-    borderBottomColor: "lightgrey",
-    borderBottomWidth: 1,
-  },
-  topCard:{
-    display: 'flex',
-    flexDirection: "row",
-    justifyContent:'flex-start',
-    height: 100,
-    padding: 5,
-    paddingTop:25,
-  },
-  ImageCard: {
-    width: 50,
-    height: 50,
-  },
-  TitleCard: {
-    marginTop: 5,
-    marginLeft: 5,
-    fontSize: 20,
-  },
-  informationCard:{
-    position:'absolute',
-    top: 55,
-    left: 62,
-    display: 'flex',
-    flexDirection: "row",
-  },
-  button:{
-    position:"absolute",
-    width:40,
-    top:"35%",
-    left: "88%",
-  },
-  input:{
-    position:"absolute",
-    backgroundColor:"white",
-    width:100,
-    height:40,
-    top:40,
-    left:250,
-    textAlign:"center"
-  },
-  price:{
-    color:"black",
-    height:30,
-    borderBottomColor:"lightgrey",
-    borderBottomWidth:1,
-    backgroundColor:"lightgrey",
-    paddingTop:3
-  },
-  entrepriseTitle:{
-    backgroundColor:"lightgray",
-    borderBottomColor:"black",
-    borderBottomWidth: 1,
-    paddingTop:5,
-    paddingBottom:10,
-  },
-  payer: {
-    backgroundColor:"lightgreen",
-    padding: 5,
-    width:"100%",
-    alignItems: "center",
-  }
 });
 
-function ResumeDetails({route}) {
+function PayementDetails({route}) {
   const {price} = route.params;
   const basketContainer = BasketContainer.useContainer();
   const userContainer = UserContainer.useContainer();
@@ -132,4 +63,4 @@ function ResumeDetails({route}) {
     
   );
 }
-export default ResumeDetails;
+export default PayementDetails;

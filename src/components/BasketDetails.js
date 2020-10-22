@@ -138,7 +138,7 @@ function BasketDetails({navigation}) {
       <FlatList
         data={basketContainer.basket}
         style={{
-          height: (Dimensions.get('window').height *0.64),
+          height: (Dimensions.get('window').height *0.60),
         }}
         renderItem={({item}) => (
         <View style={styles.Card}>
@@ -195,7 +195,7 @@ function BasketDetails({navigation}) {
         ) : null}
       <TouchableOpacity
         style={styles.validation}
-        onPress={() => navigation.navigate('Résumé')}
+        onPress={() => navigation.navigate('Résumé',{price: price})}
         disabled={!validate}
       >
         <Text style={{color:"black"}}>Valider le panier</Text>

@@ -39,7 +39,7 @@ function LoginScreen({navigation}) {
   const userContainer = UserContainer.useContainer();
   return (
       <Formik
-        initialValues={{token: 'PZPEQ3U60s7jd8RSQNN3WF0aOu7sXHIIFqJMOHYSQbtGRSZfiEpJYWwIHBAo'}}
+        initialValues={{token: 'j8komIAl4lU3I3ERwZ17IeK6nxixfpfbcyfZlVTCL0SToXqK7Zg5vHJZAmhp'}}
         onSubmit={values => userContainer.login(values)}
         validationSchema={yup.object().shape({
           token: yup

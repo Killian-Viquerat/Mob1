@@ -1,5 +1,6 @@
 import BasketDetails from '../components/BasketDetails.js';
 import ResumeDetails from '../components/ResumeDetails.js';
+import PayementDetails from '../components/PayementDetails.js';
 import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect} from 'react';
 import {TouchableOpacity,Text} from 'react-native';
@@ -36,6 +37,16 @@ function ProfileScreen() {
       <Stack.Screen
         name="Résumé"
         component={ResumeDetails}
+        options={{
+          headerStyle: {
+            backgroundColor: '#0f20d9',
+          },
+          headerTintColor: '#fff',      
+        }}
+      />
+       <Stack.Screen
+        name="Payer"
+        component={PayementDetails}
         options={{
           headerStyle: {
             backgroundColor: '#0f20d9',

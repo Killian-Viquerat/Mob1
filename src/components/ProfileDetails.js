@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {View, Button} from 'react-native';
 import {Card, Text} from 'react-native-elements';
 import {UserContainer} from '../containers/index.js';
-import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
 function ProfileScreen() {
@@ -50,7 +49,7 @@ function ProfileScreen() {
         </Card>
       </React.Fragment>
       ) : null}
-      <Button onPress={this.clearAsyncStorage} title="Logout" color="#0f20d9" />
+      <Button onPress={()=>clearAsyncStorage()} title="Logout" color="#0f20d9" />
     </View>
   );
 }

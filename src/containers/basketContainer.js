@@ -5,13 +5,19 @@ export function useBasketContainer(){
     let [basket, setBasket] = useState([]);
 
     function addProduct(product) {
-      product.quantity=1;
-      var newBasket =[...basket, product]
-      setBasket(newBasket)
-      storeBasket(newBasket)
+      if(!basket.find(({id}) => id == product.id))
+      {
+        product.quantity=1;
+        var newBasket =[...basket, product]
+        setBasket(newBasket)
+        storeBasket(newBasket)
+      }
     }
 
     function changeQuantityProduct(number,product){
+      if(number < 0){
+        number=1;
+      }
       var index = basket.findIndex(({id}) => id == product.id)
       let tmpbasket = [...basket];
       let tmpproduct = {...tmpbasket[index]};

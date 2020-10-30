@@ -160,7 +160,7 @@ function BasketDetails({navigation}) {
               placeholderTextColor="rgb(180, 180, 180)"
               keyboardType="numeric"
               value={item.quantity.toString()}
-              onChangeText={text => basketContainer.changeQuantityProduct(text,item)}
+              onChangeText={number => basketContainer.changeQuantityProduct(number,item)}
             />
             <View style={styles.button}>
               <Button

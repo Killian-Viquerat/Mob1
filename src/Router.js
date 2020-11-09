@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome5';
 import LoginScreen from './components/LoginScreen.js';
-import StockDetails from './components/StockDetails.js';
+
 //Screen
 import RegisterScreen from './components/RegisterScreen.js';
 import ProductScreen from './screen/ProductScreen.js';
 import BasketScreen from './screen/BasketScreen.js';
 import ProfileScreen from './screen/ProfileScreen.js';
+import StockScreem from './screen/StockScreen.js';
 
 import {UserContainer} from './containers/index.js';
 
@@ -59,10 +60,10 @@ export default function Router() {
               headerTintColor: '#fff',
             }}
           />
-          {userContainer.tokken ? (
+          {userContainer.access ? (
            <Tab.Screen
             name="Stock"
-            component={StockDetails}
+            component={StockScreem}
             options={{
               tabBarIcon: () => (
                 <Ionicons name="sliders-h" color="#0f20d9" size={24} />

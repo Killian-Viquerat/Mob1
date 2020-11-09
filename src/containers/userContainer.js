@@ -4,11 +4,13 @@ import axios from 'axios';
 
 export function useUserContainer() {
   let [tokken, setTokken] = useState('');
+  let [access, setAccess] = useState(0);
 
   async function refreshTokken() {
     let value = await AsyncStorage.getItem('token');
     if (value) {
       setTokken(value);
+      this.getaccess();
       return;
     }
     setTokken(false);
@@ -27,9 +29,14 @@ export function useUserContainer() {
       })
       .catch(error => console.log(error));
   }
-
+  async function getaccess(){
+    var res = await axios.get('/api/me', {
+      headers: {Authorization: 'Bearer ' + tokken},
+    })
+    setAccess(res.data.data.user_type);
+  }
   function deleteToken(){
     AsyncStorage.setItem('token','');
   }
-  return {tokken, setTokken, refreshTokken, login,deleteToken};
+  return {tokken, setTokken,access,setAccess,getaccess, refreshTokken, login,deleteToken};
 }

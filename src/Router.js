@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/FontAwesome5';
 import LoginScreen from './components/LoginScreen.js';
+import StockDetails from './components/StockDetails.js';
 //Screen
 import RegisterScreen from './components/RegisterScreen.js';
 import ProductScreen from './screen/ProductScreen.js';
@@ -58,6 +59,21 @@ export default function Router() {
               headerTintColor: '#fff',
             }}
           />
+          {userContainer.tokken ? (
+           <Tab.Screen
+            name="Stock"
+            component={StockDetails}
+            options={{
+              tabBarIcon: () => (
+                <Ionicons name="sliders-h" color="#0f20d9" size={24} />
+              ),
+              headerStyle: {
+                backgroundColor: '#0f20d9',
+              },
+              headerTintColor: '#fff',
+            }}
+          />
+          ): null}
         </Tab.Navigator>
       ) : (
         <Stack.Navigator>
